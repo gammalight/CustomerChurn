@@ -262,7 +262,7 @@ ggplot(internetServiceChurn, aes(x=InternetService, y=CumuPerc, fill = Churn)) +
 
 
 ###############################################################
-#InternetService vs Churn
+#OnlineSecurity vs Churn
 onlineSecurityChurn <- melt(table(churnData$OnlineSecurity,churnData$Churn))
 colnames(onlineSecurityChurn) <- c("OnlineSecurity", "Churn", "CumuPerc")
 #plot
@@ -276,7 +276,7 @@ ggplot(onlineSecurityChurn, aes(x=OnlineSecurity, y=CumuPerc, fill = Churn)) +
 
 
 ###############################################################
-#InternetService vs Churn
+#OnlineBackup vs Churn
 onlineBackupChurn <- melt(table(churnData$OnlineBackup,churnData$Churn))
 colnames(onlineBackupChurn) <- c("OnlineBackup", "Churn", "CumuPerc")
 #plot
@@ -291,7 +291,7 @@ ggplot(onlineBackupChurn, aes(x=OnlineBackup, y=CumuPerc, fill = Churn)) +
 
 
 ###############################################################
-#InternetService vs Churn
+#DeviceProtection vs Churn
 deviceProtectionChurn <- melt(table(churnData$DeviceProtection,churnData$Churn))
 colnames(deviceProtectionChurn) <- c("DeviceProtection", "Churn", "CumuPerc")
 #plot
@@ -306,7 +306,7 @@ ggplot(deviceProtectionChurn, aes(x=DeviceProtection, y=CumuPerc, fill = Churn))
 
 
 ###############################################################
-#InternetService vs Churn
+#TechSupport vs Churn
 techSupportChurn <- melt(table(churnData$TechSupport,churnData$Churn))
 colnames(techSupportChurn) <- c("TechSupport", "Churn", "CumuPerc")
 #plot
@@ -321,7 +321,7 @@ ggplot(techSupportChurn, aes(x=TechSupport, y=CumuPerc, fill = Churn)) +
 
 
 ###############################################################
-#InternetService vs Churn
+#StreamingTV vs Churn
 streamingTVChurn <- melt(table(churnData$StreamingTV,churnData$Churn))
 colnames(streamingTVChurn) <- c("StreamingTV", "Churn", "CumuPerc")
 #plot
@@ -336,7 +336,7 @@ ggplot(streamingTVChurn, aes(x=StreamingTV, y=CumuPerc, fill = Churn)) +
 
 
 ###############################################################
-#InternetService vs Churn
+#StreamingMovies vs Churn
 streamingMoviesChurn <- melt(table(churnData$StreamingMovies,churnData$Churn))
 colnames(streamingMoviesChurn) <- c("StreamingMovies", "Churn", "CumuPerc")
 #plot
@@ -351,7 +351,7 @@ ggplot(streamingMoviesChurn, aes(x=StreamingMovies, y=CumuPerc, fill = Churn)) +
 
 
 ###############################################################
-#InternetService vs Churn
+#Contract vs Churn
 contractChurn <- melt(table(churnData$Contract,churnData$Churn))
 colnames(contractChurn) <- c("Contract", "Churn", "CumuPerc")
 #plot
@@ -368,7 +368,7 @@ ggplot(contractChurn, aes(x=Contract, y=CumuPerc, fill = Churn)) +
 
 
 ###############################################################
-#InternetService vs Churn
+#PaperlessBilling vs Churn
 paperlessBillingChurn <- melt(table(churnData$PaperlessBilling,churnData$Churn))
 colnames(paperlessBillingChurn) <- c("PaperlessBilling", "Churn", "CumuPerc")
 #plot
@@ -384,7 +384,7 @@ ggplot(paperlessBillingChurn, aes(x=PaperlessBilling, y=CumuPerc, fill = Churn))
 
 
 ###############################################################
-#InternetService vs Churn
+#PaymentMethod vs Churn
 paymentMethodChurn <- melt(table(churnData$PaymentMethod,churnData$Churn))
 colnames(paymentMethodChurn) <- c("PaymentMethod", "Churn", "CumuPerc")
 #plot
@@ -394,6 +394,22 @@ ggplot(paymentMethodChurn, aes(x=PaymentMethod, y=CumuPerc, fill = Churn)) +
 #scale_fill_brewer(palette = "Greys")
 #automatic payment is less likely to churn
 #electronic check is more liekly to churn (of course, they are forgetting to pay the bill)
+###############################################################
+
+
+###############################################################
+#Tenure vs Churn
+#plot
+ggplot(churnData, aes(x=Churn, y=tenure)) +
+  geom_boxplot(alpha = 0.2, col='blue') +
+  stat_summary(fun.y=mean, geom="point", shape=20, size=5, color="red", fill="red")
+#higher tenure is less likely to churn
+
+qplot(x=Churn , y=tenure , data=churnData , geom=c("boxplot","jitter") , fill=Churn)
+#histogram of tenure
+ggplot(churnData, aes(tenure)) +
+  geom_histogram(bins = 20, aes(fill = ..count..)) +
+  geom_vline(aes(xintercept = mean(tenure)),col='red',size=1)
 ###############################################################
 
 
@@ -428,11 +444,11 @@ ggplot(phoneOnlyChurn, aes(x=PhoneOnly, y=CumuPerc, fill = Churn)) +
 
 
 ###############################################################
-#PhoneInternet vs Churn
-internetOnlyChurn <- melt(table(churnData$PhoneInternet,churnData$Churn))
-colnames(internetOnlyChurn) <- c("PhoneInternet", "Churn", "CumuPerc")
+#Internet only vs Churn
+internetOnlyChurn <- melt(table(churnData$InternetOnly,churnData$Churn))
+colnames(internetOnlyChurn) <- c("InternetOnly", "Churn", "CumuPerc")
 #plot
-ggplot(internetOnlyChurn, aes(x=PhoneInternet, y=CumuPerc, fill = Churn)) +
+ggplot(internetOnlyChurn, aes(x=InternetOnly, y=CumuPerc, fill = Churn)) +
   geom_bar(position="fill", stat="identity") +
   theme_linedraw() #+ if you want to plot with different colors
 #scale_fill_brewer(palette = "Greys")
@@ -441,11 +457,11 @@ ggplot(internetOnlyChurn, aes(x=PhoneInternet, y=CumuPerc, fill = Churn)) +
 
 
 ###############################################################
-#phoneOnlyChurn vs Churn
-internetPhoneChurn <- melt(table(churnData$InternetOnly,churnData$Churn))
-colnames(internetOnlyChurn) <- c("InternetOnly", "Churn", "CumuPerc")
+#PhoneInternet vs Churn
+phoneInternetChurn <- melt(table(churnData$PhoneInternet,churnData$Churn))
+colnames(internetOnlyChurn) <- c("PhoneInternet", "Churn", "CumuPerc")
 #plot
-ggplot(internetOnlyChurn, aes(x=InternetOnly, y=CumuPerc, fill = Churn)) +
+ggplot(internetOnlyChurn, aes(x=PhoneInternet, y=CumuPerc, fill = Churn)) +
   geom_bar(position="fill", stat="identity") +
   theme_linedraw() #+ if you want to plot with different colors
 #scale_fill_brewer(palette = "Greys")
@@ -513,7 +529,7 @@ prop.table(table(testchurnData$Churn))
 
 
 
-#build GLM model
+#build GLM model with all variables just to see what we get
 churnModelTrain <- glm(Churn ~ ., 
                        data = trainchurnData, 
                        family = binomial(link="logit"))
@@ -521,6 +537,74 @@ summary(churnModelTrain)
 
 
 
+
+#build GLM model with a few hand selected variables
+churnModelTrain <- glm(Churn ~ 
+                         tenure + 
+                         SeniorCitizen + 
+                         PhoneOnlyYes +
+                         PaymentMethodElectroniccheck +
+                         PaperlessBillingYes +
+                         ContractOneyear +
+                         ContractTwoyear +
+                         MonthlyCharges +
+                         TotalCharges, 
+                       data = trainchurnData, 
+                       family = binomial(link="logit"))
+summary(churnModelTrain)
+
+predDat <- trainchurnData[c("tenure",
+                            "SeniorCitizen",
+                            "PhoneOnlyYes",
+                            "PaymentMethodElectroniccheck",
+                            "PaperlessBillingYes",
+                            "ContractOneyear",
+                            "ContractTwoyear",
+                            "MonthlyCharges",
+                            "TotalCharges")]
+
+preds <- data.frame(churnPreds = predict(churnModelTrain, predDat, type = 'response'))
+predDataFinal <- cbind(trainchurnData[c("tenure",
+                                  "SeniorCitizen",
+                                  "PhoneOnlyYes",
+                                  "PaymentMethodElectroniccheck",
+                                  "PaperlessBillingYes",
+                                  "ContractOneyear",
+                                  "ContractTwoyear",
+                                  "MonthlyCharges",
+                                  "TotalCharges",
+                                  "Churn")],
+                       preds)
+
+rocObj <- roc(predDataFinal$Churn, predDataFinal$churnPreds)
+auc(rocObj)
+
+
+testData <- testchurnData[c("tenure",
+                            "SeniorCitizen",
+                            "PhoneOnlyYes",
+                            "PaymentMethodElectroniccheck",
+                            "PaperlessBillingYes",
+                            "ContractOneyear",
+                            "ContractTwoyear",
+                            "MonthlyCharges",
+                            "TotalCharges")]
+
+predsTest <- data.frame(churnPreds = predict(churnModelTrain, testData, type = 'response'))
+predTestDataFinal <- cbind(testchurnData[c("tenure",
+                                        "SeniorCitizen",
+                                        "PhoneOnlyYes",
+                                        "PaymentMethodElectroniccheck",
+                                        "PaperlessBillingYes",
+                                        "ContractOneyear",
+                                        "ContractTwoyear",
+                                        "MonthlyCharges",
+                                        "TotalCharges",
+                                        "Churn")],
+                           predsTest)
+
+rocObjTest <- roc(predTestDataFinal$Churn, predTestDataFinal$churnPreds)
+auc(rocObjTest)
 
 
 
